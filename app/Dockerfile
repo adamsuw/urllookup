@@ -1,5 +1,5 @@
 # pull the Node.js Docker image
-FROM node:alpine
+FROM node:14
 
 # create the directory inside the container
 WORKDIR /usr/src/app
@@ -8,7 +8,9 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # run npm install in our local machine
-RUN npm install
+
+RUN npm install -g npm@7.5.4
+RUN npm install express body-parser cookie-parser multer --save
 
 # copy the generated modules and all other files to the container
 COPY . .
