@@ -3,6 +3,7 @@ services:
     nodeserver:
         build:
             context: ./main
+            dockerfile: ./Dockerfile
         ports:
             - "3000:3000"
     nginx:
@@ -11,26 +12,14 @@ services:
             context: ./nginx
         ports:
             - "80:80"
-    app:
-        build: .
-        depends_on:
-            - postrges
+        links:
+            - "db"
+    db:
+        image: "postgres:12"
+        container_name: "postgres"
         environment:
-        DATABASE_URL: postgres://postgres:password@postgres:5432/db
-        NODE_ENV: production
-        PORT: 3000
+            - POSTGRES_PASSWORD=postgres
         ports:
-            - "3000:3000"
-        command: npm run dev  
+            - "5432:5432"
         volumes:
-            - .:/main/
-            - /main/node_modules
-    postrges:
-        image: postgres:latest
-        ports:
-            - "35432:5432"
-        environment:
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: password
-        POSTGRES_DB: postgres_db
-        
+            - ./pg/db_data:/var/lib/postgresql/data

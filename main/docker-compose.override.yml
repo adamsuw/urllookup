@@ -1,7 +1,0 @@
-version: "3"
-services:
-  app:
-    env_file: .env
-    volumes:
-      - .:/home/main/
-      - /home/main/node_modules

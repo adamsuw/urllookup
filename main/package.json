@@ -1,5 +1,5 @@
 {
-  "name": "main",
+  "name": "cisco",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -12,8 +12,8 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
-    "node-pg-migrate": "^5.9.0",
     "pg": "^8.5.1",
-    "sequelize": "^6.5.0"
+    "sequelize": "^6.5.0",
+    "sqlite3": "^5.0.2"
   }
 }
