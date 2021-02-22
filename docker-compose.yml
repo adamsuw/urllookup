@@ -2,9 +2,9 @@ version: "3.8"
 services:
     nodeserver:
         build:
-            context: ./app
+            context: ./main
         ports:
-            - "5000:5000"
+            - "3000:3000"
     nginx:
         restart: always
         build:
