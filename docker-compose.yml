@@ -1,25 +1,49 @@
 version: "3.8"
 services:
-    nodeserver:
+    app:
+        container_name: "nodejs"
         build:
-            context: ./main
+            context: ./app
             dockerfile: ./Dockerfile
-        ports:
-            - "3000:3000"
+        volumes:
+            - /home/app/src/node_modules
+        ports: 
+            - "3000:3000" 
+        depends_on:
+            - db
+        networks:
+            - overlay
+        
     nginx:
+        container_name: "nginx"
         restart: always
         build:
             context: ./nginx
+            dockerfile: Dockerfile
+        depends_on:
+            - app
         ports:
-            - "80:80"
-        links:
-            - "db"
+          - "80:80"
+        volumes:
+            - ./nginx-conf:/etc/nginx/conf.d
+        deploy:
+            placement:
+                constraints:
+                    - "node.role==manager"
+        networks:
+            - overlay
     db:
-        image: "postgres:12"
+        image: postgres
+        restart: always
         container_name: "postgres"
         environment:
+            - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
         ports:
             - "5432:5432"
         volumes:
             - ./pg/db_data:/var/lib/postgresql/data
+        networks:
+            - overlay
+networks:
+  overlay:
