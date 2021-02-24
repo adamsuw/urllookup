@@ -3,11 +3,11 @@ const {
     DataTypes
 } = require('sequelize');
 const sequelize = new Sequelize({
-    database: 'ahab-reactor',
+    database: 'cisco',
     username: 'postgres',
-    host: 'localhost',
+    host: process.env.DB_HOST,
     port: 5432,
-    password: 'password10$',
+    password: 'postgres',
     dialect: 'postgres',
     protocol: 'postgres',
     pool: {
