@@ -19,3 +19,8 @@ The HTTP GET hits http://localhost:3000/info
 The reverse proxy (Nginx) listen on port 80, nodeserver (Nodejs) points to the location block for the root URL (“/{hostname_and_port}/{original_path_and_query_string}")
 
 Docker is used to put all the servers in containers and to scale the VM to accomodation the URL request
+
+I used docker-compose to coordinate the containers and spin up the multiple containers by some commands, all stored in file called docker-compose.yml
+
+we will proxy the request to http://app:5000.
+
