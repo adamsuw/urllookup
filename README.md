@@ -13,3 +13,5 @@ My solution is to have node application on Node.js  server and Load Balance usin
 Nodeserver - Nodejs server serves as the webservice server
 Postgres - is the sql database that host the URL
 Nginx - Acts as the load balancer for the nodes and also scale the node
+
+The GET hits http://localhost/info
