@@ -9,14 +9,14 @@ module.exports = () => {
         };
     };
 
-    const saveInfo = () => {
+    const saveInfo = async () => {
         const data = {
-            firstName: 'Uwaila',
-            lastName: 'Adams'
+            FirstName: 'Uwaila',
+            LastName: 'Adams'
         };
-        User.create(data);
+        const result = await User.create(data);
         return {
-            info: data.firstName + ' Saved'
+            info: data.firstName + JSON.stringify(result)
         };
     };
 

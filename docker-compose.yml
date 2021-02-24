@@ -1,20 +1,18 @@
 version: "3.8"
 services:
-    app:
-        container_name: "nodejs"
-        build: .
-        command: npm start
-        volumes:
-            - .:/usr/app/
-            - /usr/app/node_modules
-        ports: 
-            - "3000:3000" 
-        depends_on:
-            - db
+    cisco:
+        image: cisco
+        build:
+            context: ./app
+            dockerfile: ./Dockerfile
+        environment:
+            NODE_ENV: production
+        ports:
+        - 3000:3000
+        depends_on: 
+        - db
         networks:
-            - overlay
-        environment: 
-            - DB_HOST=cisco_postgres
+        - overlay
         
     nginx:
         container_name: "nginx"
@@ -23,7 +21,7 @@ services:
             context: ./nginx
             dockerfile: Dockerfile
         depends_on:
-            - app
+            - cisco
         ports:
           - "80:80"
         volumes:
@@ -39,10 +37,12 @@ services:
         restart: always
         container_name: "cisco_postgres"
         environment:
+            - HOSTNAME=cisco_postgres
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
+            - PGDATA=/tmp
         ports:
-            - "5432:5432"
+            - "5433:5432"
         volumes:
             - ./pg/db_data:/var/lib/postgresql/data
         networks:

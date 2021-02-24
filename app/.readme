@@ -1,0 +1,5 @@
+# restore backup file
+pg_restore -h localhost -p 5433 -U postgres -d cisco  cisco.sql 
+
+# login into the docker postgres
+psql -h localhost -p 5433 -U postgres 

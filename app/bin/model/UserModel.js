@@ -5,7 +5,7 @@ const {
 const sequelize = new Sequelize({
     database: 'cisco',
     username: 'postgres',
-    host: process.env.DB_HOST,
+    host: 'cisco_postgres',
     port: 5432,
     password: 'postgres',
     dialect: 'postgres',
